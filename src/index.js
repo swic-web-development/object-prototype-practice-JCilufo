@@ -1,4 +1,5 @@
 import data from './data.js'
+console.log(calculateThreatLevels(data))
 
 /**
  * Calculate the threat level (health × damage) for each monster
@@ -8,6 +9,20 @@ import data from './data.js'
 export function calculateThreatLevels(monsters) {
   // TODO: Calculate the threat level (health × damage) for each monster
   // and return an array of monsters with their threat levels
+  const threatLevels = []
+
+  // Iterate through each difficulty level in the demons object
+  Object.values(monsters.demons).forEach((difficulty) => {
+    difficulty.forEach((demon) => {
+      // Calculate threat level (health × damage)
+      const threatLevel = demon.health * demon.damage
+
+      // Add the demon's name and threat level to the result array
+      threatLevels.push({ name: demon.name, threatLevel })
+    })
+  })
+
+  return threatLevels
 }
 
 /**
