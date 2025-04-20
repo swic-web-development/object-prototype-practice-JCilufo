@@ -1,6 +1,7 @@
 import data from './data.js'
 console.log(calculateThreatLevels(data))
 console.log(extractMonsterNames(data))
+console.log(organizeByThreatLevel(data))
 
 /**
  * Calculate the threat level (health × damage) for each monster
@@ -49,6 +50,30 @@ export function organizeByThreatLevel(monsters) {
   // lowThreat: < 10,000
   // mediumThreat: between 10,000 and 50,000
   // highThreat: > 50,000
+  const categories = {
+    lowThreat: [],
+    mediumThreat: [],
+    highThreat: [],
+  }
+
+  // Get all demons and calculate their threat levels
+  Object.values(monsters.demons)
+    .flat()
+    .forEach((demon) => {
+      const threatLevel = demon.health * demon.damage
+      const monsterWithThreat = { name: demon.name, threatLevel }
+
+      // Categorize based on threat level
+      if (threatLevel < 10000) {
+        categories.lowThreat.push(monsterWithThreat)
+      } else if (threatLevel <= 50000) {
+        categories.mediumThreat.push(monsterWithThreat)
+      } else {
+        categories.highThreat.push(monsterWithThreat)
+      }
+    })
+
+  return categories
 }
 
 export function sum(a, b) {
