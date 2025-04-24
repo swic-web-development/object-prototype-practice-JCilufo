@@ -22,7 +22,7 @@ export function extractMonsterNames(monsters) {
   // TODO: Extract all monster names into an array using Object methods
   return Object.values(monsters.demons)
     .flat()
-    .map((demon) => demon.name)
+    .map(({ name }) => name)
 }
 
 /**
